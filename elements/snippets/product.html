@@ -1,0 +1,163 @@
+{% set hover_class = product.available and (product.stock > 0 or settings.without_stock_sale) and not product.upon_request ? 'show-down' : '' %}
+
+<div class="product {{ hover_class }}">
+
+    {% if pages.current == 'catalog' and settings.compare %}
+        <div class="compare-buttons">
+
+            <a href="{{ links.compare_delete ~ product.id }}" class="flex justify-center align-center {{ not product.compare ? 'compare-hidden' }}" data-compare="remove">
+                <span class="filter-checkbox checked"></span>
+                {{ Translation("remover_comparar") }}
+            </a>
+
+            <a href="{{ links.compare_add ~ product.id }}" class="flex justify-center align-center {{ product.compare ? 'compare-hidden' }}" data-compare="add">
+                <span class="filter-checkbox"></span>
+                {{ Translation("comparar_produto") }}
+            </a>
+
+        </div>
+    {% endif %}
+
+
+    <div class="image">
+        {% set discount = product.price_offer > 0 ? (100 - (product.price_offer / product.price) * 100) : false %}
+        {% set image_class = settings.show_product_slide and pages.current == 'home' ? 'swiper-lazy' : 'lazyload' %}
+        
+        {% if discount %}
+            <div class="tag-list tag-discount">
+                <span class="discount-value">
+                    <svg viewBox="0 0 12 12" width="6" height="7" fill="#fff"><path fill="inherit" d="M.813 5.647a.5.5 0 01.707 0L5.5 9.628V1.166a.5.5 0 111 0v8.461l3.98-3.98a.5.5 0 01.637-.057l.07.058a.5.5 0 010 .707l-4.833 4.832a.508.508 0 01-.019.018l-.027.022a.379.379 0 01-.044.031l-.03.017a.363.363 0 01-.08.034.398.398 0 01-.08.018.45.45 0 01-.063.006H5.99a.503.503 0 01-.061-.005l.072.005a.502.502 0 01-.151-.023l-.023-.008-.015-.006a.496.496 0 01-.048-.022l-.015-.01-.01-.004a.498.498 0 01-.051-.037l-.017-.015a.232.232 0 01-.025-.022L.813 6.354a.5.5 0 010-.707z"></path></svg>
+                    {{ discount | number_format }}%
+                </span>
+            </div>
+        {% endif %}
+
+        <a href="{{ product.link }}" class="space-image">
+            {% if settings.show_product_slide and pages.current == 'home' %}              
+                <div class="swiper-lazy-preloader" style="opacity: .4"></div>
+            {% endif %}
+            <img class="{{ image_class }} {{ settings.show_image_hover ? 'primary-image' : 'no-hover' }}" src="{{ asset('img/empty.png') }}" data-src="{{ product.images[0].large }}" alt="{{ product.name }}">
+            
+            {% if settings.show_image_hover %}              
+                <img class="{{ image_class }} hover-image" src="{{ asset('img/empty.png') }}" data-src="{{ product.images[1].large }}" alt="{{ product.name }}">
+            {% endif %}
+        </a>
+        {% if settings.show_product_seals_on_listing %}
+            {% element 'snippets/product-tags' { 'product': product } %}
+        {% endif %}
+
+    </div>
+
+    <a class="product-info" href="{{ product.link }}">
+
+        <div class="product-name">
+            {{ product.name }}
+        </div>
+
+        {% if settings.show_product_review %}
+            {% element 'snippets/rating' {
+                'review': product.ranking,
+                'total' : false
+            } %}
+        {% endif %}
+
+
+
+        <div class="product-price">
+            {% if product.available and (product.stock > 0 or settings.without_stock_sale) and not product.upon_request %}
+
+                {% element 'snippets/product-price' { 'product': product } %}
+
+            {% elseif product.upon_request %}
+
+                {% element 'snippets/product-message' { 'product_message': 'Sob consulta', 'know_more' : 'Saiba mais' } %}
+
+            {% elseif product.stock <= 0 %}
+
+                {% element 'snippets/product-message' {  'product_message': 'Esse acabou :(', 'know_more' : 'Avise-me quando chegar' } %}
+
+            {% else %}
+
+                {% element 'snippets/product-message' {  'product_message': 'Esse acabou :(', 'know_more' : 'Avise-me quando chegar'  } %}
+
+            {% endif %}
+        </div>    
+        {% if settings.show_product_list_promotion %}   
+            {% if product.available and product.stock > 0 and product.price_offer and product.end_promotion != '0000-00-00' %}
+                    <div class="plugoo-countdown">
+                        <div>
+                            <div class="pg-icon">
+                                <svg width="24px" height="24px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"/><path d="M13 7h-2v5.414l3.293 3.293 1.414-1.414L13 11.586z"/></svg>
+                            </div>
+                            <div class="pg-timer">
+                                <div class="pg-timer-title">Oferta termina em:</div>
+                                <div class="pg-timer-content" data-start="{{ product.start_promotion  }}" data-end="{{ product.end_promotion }}">
+                                    <div id="pg-timer-added"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            {% endif %}
+        {% endif %}
+        
+    </a>
+
+
+    <div class="actions {{ settings.fixed_actions ? 'actions-fixed' }}">
+
+        {% if product.available and (product.stock > 0 or settings.without_stock_sale) and not product.upon_request %}
+            
+            {% if settings.fastBuy and not product.variants[0] %}
+                <div class="flex">      
+                    <div data-app="product.quantity" class="qtd-prod flex">
+                        <button type="button" data-app="product.qty" data-action="minus" data-product ="{{ product.id }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M5 10a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                        <input type="number" class="form-control" min="1" max="99" step="1" name="qty" id="quant qtd-prod-id-{{ product.id }}" value="1" size="3">
+                        <button type="button" data-app="product.qty" data-action="plus" data-product ="{{ product.id }}" >
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <form type="submit" class="add-to-cart botao" data-app="product.buy-button" data-product ="{{ product.id }}" >
+                    Comprar
+                    </form>
+                </div>
+
+                {% if settings.show_whats_prod_listing %}
+                    {% set prodTitleList = product.name |convert_encoding('UTF-8', ' iso-8859-1') %}
+                    {% set whatsMessageList  = settings.whatsprod_text |convert_encoding('UTF-8', ' iso-8859-1') %}
+                        <div class="prod-options">
+                            <a class="botao btn-pay-wp" target="_blank" href="https://api.whatsapp.com/send?phone=55{{ settings.whatsprod_number|replace({'(': '', ')': '', '-': '', ' ': '' })}}&amp;text={{ whatsMessageList|url_encode }}%0D%0DProduto%3A+{{ prodTitleList }}%0D%0DLink%3A+{{ product.link|url_encode }}">
+                                <svg id="Bold" enable-background="new 0 0 24 24" height="512" viewBox="0 0 24 24" width="512" xmlns="http://www.w3.org/2000/svg"><path d="m17.507 14.307-.009.075c-2.199-1.096-2.429-1.242-2.713-.816-.197.295-.771.964-.944 1.162-.175.195-.349.21-.646.075-.3-.15-1.263-.465-2.403-1.485-.888-.795-1.484-1.77-1.66-2.07-.293-.506.32-.578.878-1.634.1-.21.049-.375-.025-.524-.075-.15-.672-1.62-.922-2.206-.24-.584-.487-.51-.672-.51-.576-.05-.997-.042-1.368.344-1.614 1.774-1.207 3.604.174 5.55 2.714 3.552 4.16 4.206 6.804 5.114.714.227 1.365.195 1.88.121.574-.091 1.767-.721 2.016-1.426.255-.705.255-1.29.18-1.425-.074-.135-.27-.21-.57-.345z"/><path d="m20.52 3.449c-7.689-7.433-20.414-2.042-20.419 8.444 0 2.096.549 4.14 1.595 5.945l-1.696 6.162 6.335-1.652c7.905 4.27 17.661-1.4 17.665-10.449 0-3.176-1.24-6.165-3.495-8.411zm1.482 8.417c-.006 7.633-8.385 12.4-15.012 8.504l-.36-.214-3.75.975 1.005-3.645-.239-.375c-4.124-6.565.614-15.145 8.426-15.145 2.654 0 5.145 1.035 7.021 2.91 1.875 1.859 2.909 4.35 2.909 6.99z"/></svg>
+                                {{ settings.whats_button_text }}
+                            </a>
+                        </div>
+                {% endif %}
+
+            {% else %}
+                
+                <a class="product-button" href="{{ product.link }}">
+                    Ver produto
+                </a>
+                
+                {% if settings.show_whats_prod_listing %}
+                    {% set prodTitleList = product.name |convert_encoding('UTF-8', ' iso-8859-1') %}
+                    {% set whatsMessageList  = settings.whatsprod_text |convert_encoding('UTF-8', ' iso-8859-1') %}
+                        <div class="prod-options">
+                            <a class="botao btn-pay-wp" target="_blank" href="https://api.whatsapp.com/send?phone=55{{ settings.whatsprod_number|replace({'(': '', ')': '', '-': '', ' ': '' })}}&amp;text={{ whatsMessageList|url_encode }}%0D%0DProduto%3A+{{ prodTitleList }}%0D%0DLink%3A+{{ product.link|url_encode }}">
+                                <svg id="Bold" enable-background="new 0 0 24 24" height="512" viewBox="0 0 24 24" width="512" xmlns="http://www.w3.org/2000/svg"><path d="m17.507 14.307-.009.075c-2.199-1.096-2.429-1.242-2.713-.816-.197.295-.771.964-.944 1.162-.175.195-.349.21-.646.075-.3-.15-1.263-.465-2.403-1.485-.888-.795-1.484-1.77-1.66-2.07-.293-.506.32-.578.878-1.634.1-.21.049-.375-.025-.524-.075-.15-.672-1.62-.922-2.206-.24-.584-.487-.51-.672-.51-.576-.05-.997-.042-1.368.344-1.614 1.774-1.207 3.604.174 5.55 2.714 3.552 4.16 4.206 6.804 5.114.714.227 1.365.195 1.88.121.574-.091 1.767-.721 2.016-1.426.255-.705.255-1.29.18-1.425-.074-.135-.27-.21-.57-.345z"/><path d="m20.52 3.449c-7.689-7.433-20.414-2.042-20.419 8.444 0 2.096.549 4.14 1.595 5.945l-1.696 6.162 6.335-1.652c7.905 4.27 17.661-1.4 17.665-10.449 0-3.176-1.24-6.165-3.495-8.411zm1.482 8.417c-.006 7.633-8.385 12.4-15.012 8.504l-.36-.214-3.75.975 1.005-3.645-.239-.375c-4.124-6.565.614-15.145 8.426-15.145 2.654 0 5.145 1.035 7.021 2.91 1.875 1.859 2.909 4.35 2.909 6.99z"/></svg>
+                                {{ settings.whats_button_text }}
+                            </a>
+                        </div>
+                {% endif %}
+            {% endif %}
+
+        {% endif %}
+    </div>
+
+</div>

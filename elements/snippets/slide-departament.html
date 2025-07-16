@@ -1,0 +1,120 @@
+{% set lazy_class = swiper ? 'swiper-lazy' : 'lazyload' %}
+
+<div class="box-slide">
+   <div class="container">
+      <div class="section-header">
+         <h2 class="title-section">
+            {{settings.navegue_categoria_nome}}
+         </h2>
+      </div>
+      <div class="swiper-container">
+         <div class="categorias-itens swiper-wrapper">
+            {% if settings.categoria_01 %}
+            <div class="item swiper-slide">
+               <a href="{{ settings.categoria_link_01 }}">
+                  <div class="categoria-imagem">
+                     <img  {% if notLazy %}class="{{ lazy_class }}"  src="{{ asset('img/empty.png') }}" data-{% endif %}src="{{ themePath }}{{ settings.categoria_01 }}">
+                  </div>
+                  <p>{{settings.categoria_title_01}}</p>
+               </a>
+            </div>
+            {% endif %}
+            {% if settings.categoria_02 %}
+            <div class="item swiper-slide">
+               <a href="{{ settings.categoria_link_02 }}">
+                  <div class="categoria-imagem">
+                     <img  {% if notLazy %}class="{{ lazy_class }}"  src="{{ asset('img/empty.png') }}" data-{% endif %}src="{{ themePath }}{{ settings.categoria_02 }}">
+                  </div>
+                  <p>{{settings.categoria_title_02}}</p>
+               </a>
+            </div>
+            {% endif %}
+            {% if settings.categoria_03 %}
+            <div class="item swiper-slide">
+               <a href="{{ settings.categoria_link_03 }}">
+                  <div class="categoria-imagem">
+                     <img  {% if notLazy %}class="{{ lazy_class }}"  src="{{ asset('img/empty.png') }}" data-{% endif %}src="{{ themePath }}{{ settings.categoria_03 }}">
+                  </div>
+                  <p>{{settings.categoria_title_03}}</p>
+               </a>
+            </div>
+            {% endif %}
+            {% if settings.categoria_04 %}
+            <div class="item swiper-slide">
+               <a href="{{ settings.categoria_link_04 }}">
+                  <div class="categoria-imagem">
+                     <img   {% if notLazy %}class="{{ lazy_class }}"  src="{{ asset('img/empty.png') }}" data-{% endif %}src="{{ themePath }}{{ settings.categoria_04 }}">
+                  </div>
+                  <p>{{settings.categoria_title_04}}</p>
+               </a>
+            </div>
+            {% endif %}
+            {% if settings.categoria_05 %}
+            <div class="item swiper-slide">
+               <a href="{{ settings.categoria_link_05 }}">
+                  <div class="categoria-imagem">
+                     <img  {% if notLazy %}class="{{ lazy_class }}"  src="{{ asset('img/empty.png') }}" data-{% endif %}src="{{ themePath }}{{ settings.categoria_05 }}">
+                  </div>
+                  <p>{{settings.categoria_title_05}}</p>
+               </a>
+            </div>
+            {% endif %}
+            {% if settings.categoria_06 %}
+            <div class="item swiper-slide">
+               <a href="{{ settings.categoria_link_06 }}">
+                  <div class="categoria-imagem">
+                     <img  {% if notLazy %}class="{{ lazy_class }}"  src="{{ asset('img/empty.png') }}" data-{% endif %}src="{{ themePath }}{{ settings.categoria_06 }}">
+                  </div>
+                  <p>{{settings.categoria_title_06}}</p>
+               </a>
+            </div>
+            {% endif %}
+            {% if settings.categoria_07 %}
+            <div class="item swiper-slide">
+               <a href="{{ settings.categoria_link_07 }}">
+                  <div class="categoria-imagem">
+                     <img  {% if notLazy %}class="{{ lazy_class }}"  src="{{ asset('img/empty.png') }}" data-{% endif %}src="{{ themePath }}{{ settings.categoria_07 }}">
+                  </div>
+                  <p>{{settings.categoria_title_07}}</p>
+               </a>
+            </div>
+            {% endif %}
+            {% if settings.categoria_08 %}
+            <div class="item swiper-slide">
+               <a href="{{ settings.categoria_link_08 }}">
+                  <div class="categoria-imagem">
+                     <img  {% if notLazy %}class="{{ lazy_class }}"  src="{{ asset('img/empty.png') }}" data-{% endif %}src="{{ themePath }}{{ settings.categoria_08 }}">
+                  </div>
+                  <p>{{settings.categoria_title_08}}</p>
+               </a>
+            </div>
+            {% endif %}
+            {% if settings.categoria_09 %}
+            <div class="item swiper-slide">
+               <a href="{{ settings.categoria_link_09 }}">
+                  <div class="categoria-imagem">
+                     <img  {% if notLazy %}class="{{ lazy_class }}"  src="{{ asset('img/empty.png') }}" data-{% endif %}src="{{ themePath }}{{ settings.categoria_09 }}">
+                  </div>
+                  <p>{{settings.categoria_title_09}}</p>
+               </a>
+            </div>
+            {% endif %}
+            {% if settings.categoria_10 %}
+            <div class="item swiper-slide">
+               <a href="{{ settings.categoria_link_10 }}">
+                  <div class="categoria-imagem">
+                     <img  {% if notLazy %}class="{{ lazy_class }}"  src="{{ asset('img/empty.png') }}" data-{% endif %}src="{{ themePath }}{{ settings.categoria_10 }}">
+                  </div>
+                  <p>{{settings.categoria_title_10}}</p>
+               </a>
+            </div>
+            {% endif %}
+         </div>
+         <div class="swiper-button-prev"></div>
+         <div class="swiper-button-next"></div>
+         <div class="dots">
+         </div>
+      </div>
+   </div>
+</div>
+

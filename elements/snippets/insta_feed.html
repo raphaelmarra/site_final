@@ -1,0 +1,92 @@
+{% set lazy_class = swiper ? 'swiper-lazy' : 'lazyload' %}
+
+<div class="instafeed-slide">
+   <div class="container">
+      <div class="section-header">
+         <h2 class="title-section">
+            {{settings.title_instafeed}}
+            {{settings.user_instafeed}}
+         </h2>
+      </div>
+      <div class="swiper-container">
+         <div class="instafeed-itens swiper-wrapper">
+            {% if settings.insta_01 %}
+            <div class="item swiper-slide">
+               <a href="{{ settings.insta_link_01 }}">
+                  <div class="instafeed-imagem">
+                     <img  {% if notLazy %}class="{{ lazy_class }}"  src="{{ asset('img/empty.png') }}" data-{% endif %}src="{{ themePath }}{{ settings.insta_01 }}">
+                  </div>
+               </a>
+            </div>
+            {% endif %}
+            {% if settings.insta_02 %}
+            <div class="item swiper-slide">
+               <a href="{{ settings.insta_link_02 }}">
+                  <div class="instafeed-imagem">
+                     <img  {% if notLazy %}class="{{ lazy_class }}"  src="{{ asset('img/empty.png') }}" data-{% endif %}src="{{ themePath }}{{ settings.insta_02 }}">
+                  </div>
+               </a>
+            </div>
+            {% endif %}
+            {% if settings.insta_03 %}
+            <div class="item swiper-slide">
+               <a href="{{ settings.insta_link_03 }}">
+                  <div class="instafeed-imagem">
+                     <img  {% if notLazy %}class="{{ lazy_class }}"  src="{{ asset('img/empty.png') }}" data-{% endif %}src="{{ themePath }}{{ settings.insta_03 }}">
+                  </div>
+               </a>
+            </div>
+            {% endif %}
+            {% if settings.insta_04 %}
+            <div class="item swiper-slide">
+               <a href="{{ settings.insta_link_04 }}">
+                  <div class="instafeed-imagem">
+                     <img   {% if notLazy %}class="{{ lazy_class }}"  src="{{ asset('img/empty.png') }}" data-{% endif %}src="{{ themePath }}{{ settings.insta_04 }}">
+                  </div>
+               </a>
+            </div>
+            {% endif %}
+            {% if settings.insta_05 %}
+            <div class="item swiper-slide">
+               <a href="{{ settings.insta_link_05 }}">
+                  <div class="instafeed-imagem">
+                     <img  {% if notLazy %}class="{{ lazy_class }}"  src="{{ asset('img/empty.png') }}" data-{% endif %}src="{{ themePath }}{{ settings.insta_05 }}">
+                  </div>
+               </a>
+            </div>
+            {% endif %}
+            {% if settings.insta_06 %}
+            <div class="item swiper-slide">
+               <a href="{{ settings.insta_link_06 }}">
+                  <div class="instafeed-imagem">
+                     <img  {% if notLazy %}class="{{ lazy_class }}"  src="{{ asset('img/empty.png') }}" data-{% endif %}src="{{ themePath }}{{ settings.insta_06 }}">
+                  </div>
+               </a>
+            </div>
+            {% endif %}
+            {% if settings.insta_07 %}
+            <div class="item swiper-slide">
+               <a href="{{ settings.insta_link_07 }}">
+                  <div class="instafeed-imagem">
+                     <img  {% if notLazy %}class="{{ lazy_class }}"  src="{{ asset('img/empty.png') }}" data-{% endif %}src="{{ themePath }}{{ settings.insta_07 }}">
+                  </div>
+               </a>
+            </div>
+            {% endif %}
+            {% if settings.insta_08 %}
+            <div class="item swiper-slide">
+               <a href="{{ settings.insta_link_08 }}">
+                  <div class="instafeed-imagem">
+                     <img  {% if notLazy %}class="{{ lazy_class }}"  src="{{ asset('img/empty.png') }}" data-{% endif %}src="{{ themePath }}{{ settings.insta_08 }}">
+                  </div>
+               </a>
+            </div>
+            {% endif %}
+         </div>
+         <div class="swiper-button-prev"></div>
+         <div class="swiper-button-next"></div>
+         <div class="dots">
+         </div>
+      </div>
+   </div>
+</div>

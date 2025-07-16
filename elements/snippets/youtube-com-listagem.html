@@ -1,0 +1,69 @@
+
+
+{% set videoID = settings.link_youtube | split('=') | last  %}
+{% set videoLink =  settings.link_youtube %}
+
+{% if  settings.show_products_youtube %}
+<div id="box-video">
+    {% if  settings.bg_youtube %}
+    <style type="text/css">
+        #box-video {
+            background-image: url('{{ themePath }}{{ settings.bg_youtube }}');
+            background-position: center right;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }					
+    </style>
+    {% endif %}
+    <div class="container">
+        <div class="section-header">
+            <div class="section-header-left">
+                <svg height="34" viewBox="0 0 176 176" width="34" xmlns="http://www.w3.org/2000/svg"><g data-name="Layer 2"><g id="_02.youtube" data-name="02.youtube"><path id="background" d="m144.52 173a532.59 532.59 0 0 1 -113 0 32.07 32.07 0 0 1 -28.52-28.48 532.59 532.59 0 0 1 0-113 32.07 32.07 0 0 1 28.48-28.52 532.59 532.59 0 0 1 113 0 32.07 32.07 0 0 1 28.52 28.48 532.59 532.59 0 0 1 0 113 32.07 32.07 0 0 1 -28.48 28.52z" fill="#e60000"/><path id="icon" d="m140.43 61.54c-2.2-6.77-9.48-10.87-16.18-11.81a343.16 343.16 0 0 0 -72.5 0c-6.7.94-14 5-16.18 11.81a137.42 137.42 0 0 0 0 52.93c2.2 6.76 9.48 10.87 16.18 11.81a343.16 343.16 0 0 0 72.5 0c6.7-.94 14-5 16.18-11.81a137.42 137.42 0 0 0 0-52.93zm-65.59 47.54v-42.16l34.32 21.08c-11.57 7.11-22.8 14-34.32 21.08z" fill="#fff"/></g></g></svg>
+                <div class="header-left-content">
+                    <h2>
+                        {{ settings.showcase_title_youtube }}
+                    </h2>
+                    <p>{{ settings.showcase_subtitle_youtube }}</p>   
+                </div>
+            </div>
+            <div class="section-header-right">
+                <p>{{settings.showcase_invite_youtube}}</p>
+                <a href="{{ settings.link_canal }}">Inscreva-se</a>
+            </div>
+
+        </div>
+        <div class="w-full">
+            <div class="box-video">	
+                <div class="iframe-video">
+                    <iframe  id="youtube" height="582" src="{{videoLink|replace({'watch?':'','v=':'embed/'})|trim }}" >
+                    </iframe>
+                </div>
+                <div class="showcase-video">
+                    <div class="section-header">
+                        <h2 class="title-section">
+                            Produtos do v&iacute;deo
+                        </h2>
+                    </div>
+                    {% set productVideo = Products({ 
+                        'filter': ['available'], 
+                        'limit': 6, 
+                        'order': {'quantity_sold': 'desc'}, 
+                        'category' : [settings.showcase_cat_id]
+                        }) 
+                    %}
+
+                    {% if productVideo %}
+                        <div class="product-video">
+                            {% element 'snippets/product-video' {
+                                "products": productVideo
+                            } 
+                            %}
+                        </div>                       
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endif %}

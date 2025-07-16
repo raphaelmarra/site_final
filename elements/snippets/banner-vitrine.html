@@ -1,0 +1,30 @@
+
+{% set lazy_class = swiper ? 'swiper-lazy' : 'lazyload' %}
+
+{% if settings.vitrine_01 or settings.vitrine_02 %}
+    <div class="container">
+        <div class="banners-grid flex justify-between two">
+
+            {% if settings.vitrine_01 %}
+                <div class="item">
+                    <a href="{{ settings.vitrine_link_01 }}" rel="noopener noreferrer">
+                        <img {% if notLazy %}class="{{ lazy_class }}" src="{{ asset('img/empty.png') }}" data-{% endif %}src="{{ themePath }}{{ settings.vitrine_01 }}" alt="Banner">
+                    </a>
+
+                </div>
+            {% endif %}
+
+            {% if settings.vitrine_02 %}
+                <div class="item">
+                    <a href="{{ settings.vitrine_link_02 }}" rel="noopener noreferrer">
+                        <img {% if notLazy %}class="{{ lazy_class }}" src="{{ asset('img/empty.png') }}" data-{% endif %}src="{{ themePath }}{{ settings.vitrine_02 }}" alt="Banner">
+                    </a>
+
+                </div>
+            {% endif %}
+
+        </div>
+    </div>
+{% endif %}
+
+

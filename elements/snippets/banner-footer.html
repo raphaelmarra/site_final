@@ -1,0 +1,14 @@
+{% if settings.banner_footer_img %}
+    {% set lazy_class = swiper ? 'swiper-lazy' : 'lazyload' %}
+    <div class="container">
+        <div class="banners-footer flex justify-between">
+
+                <div class="item">
+                    <a href="{{ settings.banner_footer_link }}" rel="noopener noreferrer">
+                        <img {% if notLazy %}class="{{ lazy_class }}" src="{{ asset('img/empty.png') }}" data-{% endif %}src="{{ themePath }}{{ settings.banner_footer_img }}" alt="Banner">
+                    </a>
+                </div>
+
+        </div>
+    </div>
+{% endif %}

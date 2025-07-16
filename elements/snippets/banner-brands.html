@@ -1,0 +1,116 @@
+
+{% set lazy_class = swiper ? 'swiper-lazy' : 'lazyload' %}
+
+{% if settings.brands %}
+    <div id="banner-brands">
+        <div class="container swiper-container">
+            <div class="section-header">
+                <h2 class="title-section flex">
+                    {{ settings.brand_title}}
+                </h2>
+            </div>
+            <div class="brands-slide swiper-wrapper flex justify-between">
+                {% if settings.brand_01 %}
+                    <div class="item swiper-slide">
+
+                        <a href="{{ settings.brand_link_01 }}" rel="noopener noreferrer">
+                            <img {% if notLazy %}class="{{ lazy_class }}" src="{{ asset('img/empty.png') }}" data-{% endif %}src="{{ themePath }}{{ settings.brand_01 }}" alt="Banner">
+                        </a>
+
+                    </div>
+                {% endif %}
+
+                {% if settings.brand_02 %}
+                    <div class="item swiper-slide">
+
+                        <a href="{{ settings.brand_link_02 }}" rel="noopener noreferrer">
+                            <img {% if notLazy %}class="{{ lazy_class }}" src="{{ asset('img/empty.png') }}" data-{% endif %}src="{{ themePath }}{{ settings.brand_02 }}" alt="Banner">
+                        </a>
+
+                    </div>
+                {% endif %}
+
+                {% if settings.brand_03 %}
+                    <div class="item swiper-slide">
+
+                        <a href="{{ settings.brand_link_03 }}" rel="noopener noreferrer">
+                            <img {% if notLazy %}class="{{ lazy_class }}" src="{{ asset('img/empty.png') }}" data-{% endif %}src="{{ themePath }}{{ settings.brand_03 }}" alt="Banner">
+                        </a>
+
+                    </div>
+                {% endif %}
+
+                {% if settings.brand_04 %}
+                    <div class="item swiper-slide">
+
+                        <a href="{{ settings.brand_link_04 }}" rel="noopener noreferrer">
+                            <img {% if notLazy %}class="{{ lazy_class }}" src="{{ asset('img/empty.png') }}" data-{% endif %}src="{{ themePath }}{{ settings.brand_04 }}" alt="Banner">
+                        </a>
+
+                    </div>
+                {% endif %} 
+
+                {% if settings.brand_05 %}
+                    <div class="item swiper-slide">
+
+                        <a href="{{ settings.brand_link_05 }}" rel="noopener noreferrer">
+                            <img {% if notLazy %}class="{{ lazy_class }}" src="{{ asset('img/empty.png') }}" data-{% endif %}src="{{ themePath }}{{ settings.brand_05 }}" alt="Banner">
+                        </a>
+
+                    </div>
+                {% endif %}
+
+                {% if settings.brand_06 %}
+                    <div class="item swiper-slide">
+
+                        <a href="{{ settings.brand_link_06 }}" rel="noopener noreferrer">
+                            <img {% if notLazy %}class="{{ lazy_class }}" src="{{ asset('img/empty.png') }}" data-{% endif %}src="{{ themePath }}{{ settings.brand_06 }}" alt="Banner">
+                        </a>
+
+                    </div>
+                {% endif %}
+
+                {% if settings.brand_07 %}
+                    <div class="item swiper-slide">
+
+                        <a href="{{ settings.brand_link_07 }}" rel="noopener noreferrer">
+                            <img {% if notLazy %}class="{{ lazy_class }}" src="{{ asset('img/empty.png') }}" data-{% endif %}src="{{ themePath }}{{ settings.brand_07 }}" alt="Banner">
+                        </a>
+
+                    </div>
+                {% endif %}
+
+                {% if settings.brand_08 %}
+                    <div class="item swiper-slide">
+
+                        <a href="{{ settings.brand_link_08 }}" rel="noopener noreferrer">
+                            <img {% if notLazy %}class="{{ lazy_class }}" src="{{ asset('img/empty.png') }}" data-{% endif %}src="{{ themePath }}{{ settings.brand_08 }}" alt="Banner">
+                        </a>
+
+                    </div>
+                {% endif %}
+
+                {% if settings.brand_09 %}
+                    <div class="item swiper-slide">
+
+                        <a href="{{ settings.brand_link_09 }}" rel="noopener noreferrer">
+                            <img {% if notLazy %}class="{{ lazy_class }}" src="{{ asset('img/empty.png') }}" data-{% endif %}src="{{ themePath }}{{ settings.brand_09 }}" alt="Banner">
+                        </a>
+
+                    </div>
+                {% endif %}
+
+                {% if settings.brand_10 %}
+                    <div class="item swiper-slide">
+
+                        <a href="{{ settings.brand_link_10 }}" rel="noopener noreferrer">
+                            <img {% if notLazy %}class="{{ lazy_class }}" src="{{ asset('img/empty.png') }}" data-{% endif %}src="{{ themePath }}{{ settings.brand_10 }}" alt="Banner">
+                        </a>
+
+                    </div>
+                {% endif %}
+            </div>
+            <div class="dots"></div>
+        </div>
+    </div>
+{% endif %}

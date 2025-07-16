@@ -1,0 +1,52 @@
+
+{% set lazy_class = swiper ? 'swiper-lazy' : 'lazyload' %}
+
+{% if settings.mini_01 or settings.mini_02 or settings.mini_03 %}
+    <div class="container">
+        <div id="mini-banner" class="banners-grid flex justify-between four">
+
+                    {% if settings.mini_01 %}
+                        <div class="item swiper-slide">
+
+                            <a href="{{ settings.mini_link_01 }}" rel="noopener noreferrer">
+                                <img {% if notLazy %}class="{{ lazy_class }}" src="{{ asset('img/empty.png') }}" data-{% endif %}src="{{ themePath }}{{ settings.mini_01 }}" alt="Banner">
+                            </a>
+
+                        </div>
+                    {% endif %}
+
+                    {% if settings.mini_02 %}
+                        <div class="item swiper-slide">
+
+                            <a href="{{ settings.mini_link_02 }}" rel="noopener noreferrer">
+                                <img {% if notLazy %}class="{{ lazy_class }}" src="{{ asset('img/empty.png') }}" data-{% endif %}src="{{ themePath }}{{ settings.mini_02 }}" alt="Banner">
+                            </a>
+
+                        </div>
+                    {% endif %}
+
+                    {% if settings.mini_03 %}
+                        <div class="item swiper-slide">
+
+                            <a href="{{ settings.mini_link_03 }}" rel="noopener noreferrer">
+                                <img {% if notLazy %}class="{{ lazy_class }}" src="{{ asset('img/empty.png') }}" data-{% endif %}src="{{ themePath }}{{ settings.mini_03 }}" alt="Banner">
+                            </a>
+
+                        </div>
+                    {% endif %}
+
+                    {% if settings.mini_04 %}
+                        <div class="item swiper-slide">
+
+                            <a href="{{ settings.mini_link_04 }}" rel="noopener noreferrer">
+                                <img {% if notLazy %}class="{{ lazy_class }}" src="{{ asset('img/empty.png') }}" data-{% endif %}src="{{ themePath }}{{ settings.mini_04 }}" alt="Banner">
+                            </a>
+
+                        </div>
+                    {% endif %}
+
+        </div>
+    </div>
+{% endif %}
+
+

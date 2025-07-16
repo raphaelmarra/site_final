@@ -1,0 +1,70 @@
+{% if type %}
+
+    {% set quantity = quantity | default(8) %}
+    {% set category = category %}
+
+    {% if type == 'top_seller' %}
+
+        {% set products = Products({
+            'filter': ['available'],
+            'order' : { 'quantity_sold': 'desc' },
+            'limit' : quantity
+        }) %}
+
+    {% elseif type == 'prod-vid' %}
+
+    {% set products = Products({
+        'filter': ['available'],
+        'limit' : '8',
+        'order': 'rand',
+        'categories': category
+    }) %} 
+
+    {% else %}
+
+        {% if rand %}
+            {% set products = Products({
+                'filter': [type, 'available'],
+                'limit' : quantity,
+                'order' : 'rand'
+            }) %}   
+        {% else %}
+            {% set products = Products({
+                'filter': [type, 'available'],
+                'limit' : quantity
+            }) %}
+            
+        {% endif %}
+        
+    {% endif %}
+
+    {% if products | length > 0 %}
+        <div id="listagem-produtos" class="section-showcase {{ settings.show_product_slide ? 'showcase-slide' : 'showcase-noslide' }}" data-prod-line="{{ settings.showcase_product_line }}">
+            <div class="container">
+                <div class="{{ settings.show_product_slide ? 'swiper-container' : 'showcase-content' }}">
+                    <div class="section-header">
+                        <h2 class="title-section">
+                            {% element 'snippets/title-showcase' { 'type': type } %}
+                        </h2>
+                    </div>
+    
+                    <div class="list-product flex {{ settings.show_product_slide ? 'swiper-wrapper' }}">
+                        {% for item in products %}
+                            <div class="item {{ settings.show_product_slide ? 'swiper-slide' }} {{ settings.fixed_actions ? 'item-actions-fixed' }}">
+                                {% element 'snippets/product' {
+                                    product : item
+                                } %}
+                            </div>            
+                        {% endfor %}
+                    </div>
+                    {% if settings.show_product_slide %}              
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-button-next"></div>
+                        <div class="dots"></div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+{% endif %}

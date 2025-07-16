@@ -1,0 +1,133 @@
+{% if 'depoimentos' in pages.current %}
+    <div class="modal-theme modal-store-reviews">
+        <div class="modal-shadow"></div>
+        <div class="modal-scroll">
+            <div class="modal-wrapper">
+                <div class="modal-info">
+                    <div class="close-icon">
+                        <i class="icon icon-times"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+{% if 'product' in pages.current %}
+    <div class="modal-theme modal-video">
+        <div class="modal-shadow"></div>
+        <div class="modal-wrapper">
+            <div class="modal-info">
+                <div class="close-icon">
+                    <i class="icon icon-times"></i>
+                </div>
+                <div class="video">
+                    <iframe class="iframe-lazy" data-src="#" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-theme modal-terms">
+        <div class="modal-shadow"></div>
+        <div class="modal-wrapper">
+            <div class="modal-info">
+                <div class="close-icon">
+                    <i class="icon icon-times"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+{% if 'home' in pages.current %}
+    {% if settings.show_news_popup %} 
+
+        {% set title_news = settings.title_newsletter|default('Newsletter')  %}
+        {% set subtitle_news = settings.subtitle_newsletter|default('Receba as melhores e mais exclusivas ofertas')  %}
+        {% set color_news = settings.color_text_newsletter|default('#222')  %}
+        {% set bg_news = settings.color_bg_newsletter|default('#fff')  %}
+        {% set news_time = settings.news_time|default('10000')  %}
+        {% set news_frequency = settings.news_frequency|default('0')  %}
+        {% set lazy_class = swiper ? 'swiper-lazy' : 'lazyload' %}
+
+        <div class="modal-theme modal-newsletter" data-time="{{news_time}}" data-frequency="{{news_frequency}}">
+            <div class="modal-shadow"></div>
+            <div class="modal-scroll">
+                <div class="modal-wrapper">
+                    <div class="modal-info  {{ settings.imagem_newsletter ? 'image' : 'no-image' }}" style="background: {{ bg_news }}">
+                        <div class="close-icon">
+                            <i class="icon icon-times"></i>
+                        </div>
+
+
+                        <div class="newsletter flex justify-between align-center">
+                            {% if settings.imagem_newsletter %}
+                                <div class="news_imagem">
+                                    <img {% if notLazy %}class="{{ lazy_class }}" src="{{ asset('img/sem-foto.gif') }}" data-{% endif %}src="{{ themePath }}{{ settings.imagem_newsletter }}" alt="Banner">
+                                </div>
+                            {% endif %}
+                            <div class="info align-center {{ settings.imagem_newsletter ? 'divided' : 'full' }}">
+                                <div class="text">
+                                    <div class="first" style="color: {{ color_news }}">{{ title_news }}</div>
+                                    <div class="last" style="color: {{ color_news }}">{{ subtitle_news }}</div>
+                                </div>
+
+                                <form class="form" action="/mvc/store/newsletter/" method="post">     
+                                        <input type="hidden" name="loja" value="{{ store.id }}">
+                                        <input id="news-name" class="field" name="name" type="text" placeholder="Seu nome" required>
+                                        <input type="email" class="field" name="email" placeholder="Seu e-mail" required spellcheck="false" autocomplete="off">
+                                        <button type="submit" class="button news-button" title="Cadastrar" aria-label="Cadastrar">
+                                            <span>Cadastre-se</span>
+                                        </button>
+                                </form>
+                            </div>
+                        </div>  
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endif %}
+
+<div class="modal-theme modal-sales">
+    <div class="modal-shadow"></div>
+    <div class="modal-scroll">
+        <div class="modal-wrapper">
+            <div class="modal-info">
+                <div class="close-icon">
+                    <i class="icon icon-times"></i>
+                </div>
+                {% if settings.show_menu_sale %}    
+                        <div class="modal-header">                      
+                            <svg enable-background="new 0 0 512.018 512.018" height="34" viewBox="0 0 512.018 512.018" width="34" xmlns="http://www.w3.org/2000/svg"><g><path d="m360.282 96.753c-46.547-55.655-92.479-91.823-94.412-93.335-10.473-8.193-25.861-.736-25.861 12.6v70.358c0 36.335-48.075 49.125-66.104 17.54-5.568-9.754-19.184-10.858-26.271-2.209-48.434 59.1-91.625 133.598-91.625 210.311 0 110.28 89.72 200 200 200s200-89.72 200-200c0-78.711-45.479-155.187-95.727-215.265zm-104.273 383.265c-92.636 0-168-75.364-168-168 0-64.54 36.903-128.379 72.284-174.746 41.915 37.016 111.716 8.571 111.716-50.896v-35.438c70.952 64.823 152 165.149 152 261.08 0 92.636-75.364 168-168 168z"/><path d="m321.832 227.388c-6.974-5.424-17.026-4.168-22.453 2.807l-112 144c-8.228 10.58-.519 25.824 12.619 25.824 4.768 0 9.486-2.123 12.641-6.178l112-144c5.425-6.975 4.168-17.028-2.807-22.453z"/><circle cx="312.009" cy="368.018" r="32"/><circle cx="200.009" cy="256.018" r="32"/></g></svg>                        
+                            <div class="name">
+                                {% set titleCatSale = settings.title_menu_sale  %}
+                                {{ titleCatSale|default('Melhores ofertas') }}
+                            </div>
+                        </div>        
+                        
+                        <div class="mob-sales">
+                            {% set numberProdsOffer = settings.number_prods_offer  %}
+
+                            {% set productOfferMenu = Products({ 
+                                'filter': ['promotion'], 
+                                'limit': numberProdsOffer, 
+                                'order': {'quantity_sold': 'desc'}, 
+                                }) 
+                            %}
+
+                            {% if productOfferMenu %}
+                                <div class="mob-product-menu-sale">
+                                    {% element 'snippets/product-menu-sale' {
+                                        "products": productOfferMenu
+                                    } 
+                                    %}
+                                </div>                       
+                            {% endif %}
+
+                        </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
