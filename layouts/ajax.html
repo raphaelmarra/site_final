@@ -1,0 +1,19 @@
+{% set isCart = 'cart-preview-body' in content_for_layout %}
+{{ content_for_layout }}
+
+{% if isCart %}
+<script>
+
+    var nodes = document.querySelectorAll('.cart-preview-item');
+    var last = nodes[0];
+    // var proId = last.getAttribute('data-product-id')
+
+    if (last) {
+
+        var nodesrelates = document.querySelector('.section-product-related').cloneNode(true);
+        var previewTable = document.querySelector('.cart-preview-body');
+        previewTable.insertAdjacentElement('beforeend', nodesrelates)
+    }
+    theme.updateCartTotal();
+</script>
+{% endif %}

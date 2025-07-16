@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="pt-br" data-tray-theme="{{ settings.theme_name }}" data-tray-theme-version="1.2.0" data-files="{{ utils.assets_version }}" data-store="{{ store.id }}" class="page-{{ pages.current }}">
+    <head>
+
+        {# Minified variable is used for helping development #}
+        {% set minified = true %}
+
+        {{ html.charset() }}
+
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport"              content="width=device-width, initial-scale=1">
+        <meta name="theme-color"           content="{{ settings.color_primary_medium }}">
+
+        {% element 'head-metas' %}
+        {% element 'css-variables' %}
+        {% element 'styles' { minified : minified } %}
+
+        {{ tray.analytics }}
+        {{ googleTagManager.header(pages.current, tagManagerData) }}
+        <style>
+            @media (max-width: 560px) {
+
+.header.not-visible {
+    position: fixed;
+    width: 100%;
+    z-index: 150;
+    top: 0;
+    transition: .3s ease-out;
+}
+
+.menu-mobile {
+    z-index: 181;
+}
+
+.header.not-visible .logo img,
+.header.not-visible .logo svg {
+    max-height: 35px;
+    height: 0;
+}
+
+.header .line {
+    margin-bottom: 8px;
+    height: auto;
+}
+
+.header.not-visible .line {
+    justify-content: space-between;
+    flex-wrap: unset;
+    align-items: center;
+    padding-top: 1rem;
+    padding-bottom: .6rem;
+    height: auto;
+}
+
+.header.not-visible {
+    transition: transform .3s ease-out, background 0s ease-out .3s;
+}
+
+.header .header-search-wrapper {
+    display: block;
+    margin-top: 5px;
+}
+
+.header .header-search-wrapper .input-search {
+    font-size: 12px;
+    padding: 0 39px 0 14px;
+
+}
+
+@media (max-width: 767px) {
+    .header .logo {
+        padding: 9px 0px;
+    }
+}
+.header.not-visible .header-menu {
+    margin-right: 10px;
+}
+
+.header.not-visible .header-search-wrapper {
+    order: 2;
+    padding-top: 0;
+    display: block;
+    bottom: 0;
+    left: 0;
+    margin: 0 8px;
+    position: relative;
+    right: 0;
+
+}
+}
+        </style>
+    </head>
+    <body>
+
+        {{ googleTagManager.top(pages.current, tagManagerData) }}
+        {% element 'snippets/modals-theme' %}
+
+        <div class="overlay-shadow"></div>
+        <div class="application">
+
+            {% element 'snippets/menu-mobile' %}
+            {% element 'header' %}
+
+            <main class="site-main">
+                {% if not ('home' in pages.current) %}
+                {% if settings.show_all_tarja_beneficios  and not utils.is_mobile %}
+                    {% element 'snippets/tarja-beneficios' %}
+                {% endif %}
+
+                <div class="page-content {{ pages.current in ['catalog', 'home', 'search'] ? ' not-padding' }}">
+                {% endif %}
+
+
+
+                    {% if "central" in pages.current %}
+
+                        <div class="container">
+                            <div class="line-panel flex">
+                                {%  element 'sidebar-central' %}
+                                <div class="col-panel">
+                                    {{ content_for_layout }}
+                                </div>
+                            </div>
+                        </div>
+
+                    {% elseif 'home' in pages.current %}
+
+                        {{ content_for_layout }}
+
+                    {% else %}
+
+                        {% set special_pages = [
+                            'listas',
+                            'depoimentos-de-clientes',
+                            'noticias'
+                        ] %}
+
+                        {% set title = '' %}
+
+                        {% for page in pages.custom %}
+                            {% if ('empresa' in page.slug and pages.current == 'company') or (pages.current == page.slug and page.slug not in special_pages) %}
+                                {% set title = page.name %}
+                            {% endif %}
+                        {% endfor %}
+
+                        <div class="container {% if title != '' %} is-custom-page {% endif %}">
+
+                            {% if title != '' %}
+                                <div class="page-title">
+                                    <span class="text">
+                                        {{ title }}
+                                    </span>
+                                </div>
+                            {% endif %}
+
+                            {{ content_for_layout }}
+
+                        </div>
+
+                    {% endif %}
+                {% if not pages.current == 'home' %}
+                </div>
+                {% endif %}
+            </main>
+
+            {% element 'snippets/banner-footer' %}
+            {% element 'footer' %}
+
+            {% if settings.show_whatsapp_button %}
+                {% element 'snippets/whatsapp' { 'local': 'floating' } %}
+            {% endif %}
+
+            {% element 'snippets/menu-bar-mobile' %}
+
+        </div>
+        <div>
+            {% element 'snippets/messages' %}
+        </div>
+
+        {% element 'snippets/pageview' %}
+        {% element 'snippets/modal' %}
+
+        {% element 'scripts' { minified : minified } %}
+
+        {% if pages.current == 'product' %}
+        <script>
+            (function($){
+
+            var header_size = jQuery('.header').outerHeight();
+            var floating_buy_container = jQuery("#floating_buy_container");
+            var floating_buy_button = jQuery("#floating_buy_button");
+            floating_buy_container.addClass("is-visible");
+
+            function setBottomPadding() {
+                var containerHeight = floating_buy_container.outerHeight();
+                var currentBottomPadding = parseFloat( jQuery('.body-wrapper').css('padding-bottom') );
+
+                jQuery('.body-wrapper').css({'padding-bottom': containerHeight + currentBottomPadding});
+            }
+            setBottomPadding();
+
+            function checkBuyButton(){
+                var bottom_of_element = jQuery("#bt_comprar").offset().top + jQuery("#bt_comprar").outerHeight();
+                var top_of_screen = $(window).scrollTop();
+
+
+                if( jQuery(window).scrollTop() <= 300){
+                    floating_buy_container.addClass("is-visible");
+                    if (jQuery("#floating-whatsapp").length > 0) {
+                        jQuery("#floating-whatsapp").addClass("visuallyhidden");
+                    }
+                }
+                else if (top_of_screen + header_size < bottom_of_element+30 ){
+                    if ( floating_buy_container.hasClass("is-visible")){
+                        floating_buy_container.removeClass("is-visible");
+                        if ( jQuery("#floating-whatsapp").length > 0) {
+                            jQuery("#floating-whatsapp").removeClass("visuallyhidden");
+                        }
+                    }
+                }
+
+                else if ( !floating_buy_container.hasClass("is-visible") ){
+                    floating_buy_container.addClass("is-visible");
+                    if ( jQuery("#floating-whatsapp").length > 0) {
+                        jQuery("#floating-whatsapp").addClass("visuallyhidden");
+                    }
+                }
+            }
+            checkBuyButton();
+
+            jQuery(window).on('scroll', function() {
+                checkBuyButton()
+
+            });
+
+            floating_buy_button.on('click', function() {
+                jQuery('#button-buy').trigger('click');
+                jQuery("html, body").animate({ scrollTop: jQuery('#form_comprar').offset().top - header_size }, "slow");
+            });
+
+            jQuery( window ).on('resize', function() {
+                header_size = jQuery('.header').outerHeight()
+            });
+        })(jQuery);
+
+        </script>
+        <script>
+
+            goToProductDesc= function(){
+
+                var internal = this;
+
+                jQuery('.page-product__summary--anchor').on('click', function(){
+
+                    var target;
+                    var adjust;
+
+                    if(jQuery(window).width() < 768){
+                        target = '.product-tabs .tabs-content .tab-link-mobile.description-link-tab';
+                        adjust = 60;
+                    } else {
+                        target = '.product-tabs .tabs-nav .tab-link.description-link-tab';
+                        adjust = 120;
+                    }
+
+                    jQuery(target).trigger('click');
+                    internal.scrollToElement(target, adjust);
+
+                });
+
+                scrollToElement= function (target, adjust = 0) {
+                    if(target && target !== "#"){
+
+                        jQuery("html,body").animate({
+                            scrollTop : Math.round(jQuery(target).offset().top) - adjust
+                        }, 600);
+
+                    }
+                }
+
+            }
+            goToProductDesc()
+
+            setTimeout(() => {
+                document.querySelector(".tabs-content #descricao").style.display = 'block'
+
+            }, 2000);
+        </script>
+        {% endif %}
+
+        {{ store.chat }}
+        {{ googleTagManager.bottom(pages.current, tagManagerData) }}
+
+    </body>
+</html>
