@@ -1,0 +1,82 @@
+{% element 'snippets/banner-home' %}
+
+{% if settings.tarja_beneficios %} 
+    {% element 'snippets/tarja-beneficios' %}
+{% endif %}
+
+{% element 'snippets/banner-mini' %}   
+
+{% if settings.show_navegue_categoria %}  
+    {% element 'snippets/slide-departament' %}    
+{% endif %}
+
+{# First showcase #}
+{% element 'showcase' {
+    'rand'     : settings.showcase_rand_products,
+    'type'     : settings.showcase_type_1,
+    'quantity' : settings.showcase_quantity_1
+} %}
+
+
+{# Second showcase #}
+{% element 'showcase' {
+    'rand'     : settings.showcase_rand_products,
+    'type'     : settings.showcase_type_2,
+    'quantity' : settings.showcase_quantity_2
+    
+} %}
+
+{% element 'snippets/banner-vitrine' %}    
+
+{# showcase #}
+{% element 'showcase' {
+    'rand'     : settings.showcase_rand_products,
+    'type'     : settings.showcase_type_3,
+    'quantity' : settings.showcase_quantity_3
+} %}
+
+{% element 'snippets/banner-line' { 'banner_id': 'extra4' } %}
+{% element 'snippets/banner-line' { 'banner_id': 'extra5', 'mobile': true } %}
+
+{% element 'snippets/banner-brands' %}    
+
+{% element 'snippets/youtube-com-listagem' %}
+
+{% if settings.blog %}
+    <div class="container">
+        <div class="section-news">
+            <div class="section-header">
+                <h2 class="title-section">
+                    &Uacute;ltimas not&iacute;cias
+                </h2>
+            </div>
+            <div class="news-content swiper-container">
+                <div class="swiper-wrapper">
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+
+{% for pages in pages.custom %}
+    {% if pages.info == "depoimentos_de_clientes" and settings.show_reviews %}
+        <div class="section-avaliacoes slide-has-dots">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="title-section">
+                        Quem j&aacute; comprou e recomenda
+                    </h2>
+                </div>
+                {% element 'CustomerReview.reviews' %}
+            </div>
+        </div>
+    {% endif %}
+{% endfor %}
+
+
+{% if settings.show_instafeed %}  
+    {% element 'snippets/insta_feed' %}    
+{% endif %}
+
+
