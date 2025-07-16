@@ -6,14 +6,15 @@
         alt    : image.label ? image.label : (image.alt ? image.alt : 'Banner'),
         target : image.target,
         width  : image.width,
-        height : image.height
+        height : image.height,
+        priority : priority | default(null)
     } %}
 
     {% set lazy_class         = swiper ? 'swiper-lazy' : 'lazyload' %}
     {% set padding_percentage = ((item.height / item.width) * 100) %}
 
     <{{ item.link ? 'a href="'~ item.link ~'"' : 'span' }} {% if item.target == '_blank' %} target="_blank" rel="noopener noreferrer" {% endif %} {% if padding %} class="item-image" style="--padding: {{ padding_percentage }}%" {% endif %}>
-        <img {% if notLazy %}class="{{ lazy_class }}" src="{{ asset('img/empty.png') }}" data-{% endif %}src="{{ item.src }}" alt="{{ item.alt ? item.alt : 'Banner' }}" width="{{ item.width }}" height="{{ item.height }}">
+        <img {% if notLazy %}class="{{ lazy_class }}" src="{{ asset('img/empty.png') }}" data-{% endif %}src="{{ item.src }}" alt="{{ item.alt ? item.alt : 'Banner' }}" width="{{ item.width }}" height="{{ item.height }}"{% if item.priority %} fetchpriority="{{ item.priority }}"{% endif %}>
     </{{ item.link ? 'a' : 'span' }}>
 
 {% endif %}

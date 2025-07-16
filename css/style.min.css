@@ -3909,11 +3909,12 @@
  .banners-grid {
   margin:1.875rem 0 2.5rem;
  }
- .banners-grid img {
+.banners-grid img {
   object-fit:cover;
   width:100%;
+  aspect-ratio:16/9;
   border-radius:8px
- }
+}
  .banners-grid .item {
   width:100%
  }

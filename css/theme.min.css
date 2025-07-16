@@ -3776,7 +3776,8 @@
    .banners-grid img {
     object-fit:cover;
     width:100%;
-    border-radius:8px 
+    aspect-ratio:16/9;
+    border-radius:8px
    }
    .banners-grid .item {
     width:100% 
