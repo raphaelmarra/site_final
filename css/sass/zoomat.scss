@@ -1,0 +1,28 @@
+.box-zoom{
+    background-color: #fff;
+    display: block;
+    width: 400px;
+    height: 400px;
+    margin: 0 auto;
+    background-size: cover;
+    background-position: 50% 50% ;
+    background-repeat: no-repeat;
+    cursor: zoom-in;
+    
+    img{
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+}
+    
+        
+.box-zoom.active{
+    background-size: 250% auto;
+}
+    
+
+.box-zoom.active.zoom-plus{
+    background-size: 500% auto;
+    cursor: zoom-out;
+}
