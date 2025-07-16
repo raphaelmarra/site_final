@@ -15,12 +15,14 @@
                     {% for slide in slideshow.slides %}
                         {% set lazyIndex = loop.index == 1 ? false : true %}
                         <div class="swiper-slide item">
+                            {% set priority = loop.index == 1 ? 'high' : null %}
                             {% element 'snippets/banner' {
                                 image    : slide,
                                 swiper   : lazyIndex,
                                 notLazy  : lazyIndex,
                                 padding  : true,
-                                location : 'banner-home'
+                                location : 'banner-home',
+                                priority : priority
                             } %}
                         </div>
                     {% endfor %}

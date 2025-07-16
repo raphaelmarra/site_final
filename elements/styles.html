@@ -5,7 +5,8 @@
 
 {# Styles Pre-loads #}
 
-<link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700&display=swap" rel="style" type="text/css">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700&display=swap" onload="this.rel='stylesheet'" crossorigin>
+<noscript><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" crossorigin></noscript>
 <link rel="preload" href="{{ asset('css/swiper.min.css')       }}" as="style" type="text/css" >
 <link rel="preload" href="{{ asset('css/style' ~ extensionCss) }}" as="style" type="text/css" >
 
